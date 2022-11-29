@@ -229,6 +229,8 @@ func lexStatement(l *lexer) lexFunc {
 		return lexStatement
 	case r == '"':
 		return lexString
+	case r == '\'':
+		return lexString
 	case r == ',':
 		l.produce(tokenDelimeter)
 		return lexStatement
@@ -271,6 +273,10 @@ func lexString(l *lexer) lexFunc {
 
 	switch r {
 	case '"':
+		l.produce(tokenString)
+
+		return lexStatement
+	case '\'':
 		l.produce(tokenString)
 
 		return lexStatement
